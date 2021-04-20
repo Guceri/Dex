@@ -2,6 +2,7 @@
 //the purpose is to lighten the App.js file
 //dispatch is a function that is being passed in
 
+
 import Web3 from 'web3'
 import { web3Loaded, web3AccountLoaded, tokenLoaded, exchangeLoaded } from './actions'
 import Token from '../abis/Token.json'
