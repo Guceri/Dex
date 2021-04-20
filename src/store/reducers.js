@@ -11,7 +11,6 @@ function web3(state = {}, action) {
 	}
 }
 
-
 function token(state = {}, action) {
 	switch (action.type) {
 		case 'TOKEN_LOADED':
