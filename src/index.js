@@ -1,11 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux' //exposes the Store to our app
+import { Provider } from 'react-redux'
 import App from './components/App'
-import configureStore from './store/configureStore' //Our store is created here
+import configureStore from './store/configureStore'
 import 'bootstrap/dist/css/bootstrap.css'
 import * as serviceWorker from './serviceWorker'
-
 
 ReactDOM.render(
   <Provider store={configureStore()}>
