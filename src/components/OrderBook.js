@@ -16,9 +16,10 @@ const renderOrder = (order) => {
   )
 }
 
-const showOrderBook = (props) => {
-  const { orderBook } = props
+const iOrderBook = (props) => {
 
+  const { orderBook } = props
+  
   return(
     <tbody>
       {orderBook.sellOrders.map((order) => renderOrder(order))}
@@ -42,7 +43,7 @@ class OrderBook extends Component {
           </div>
           <div className="card-body order-book">
             <table className="table table-dark table-sm small">
-              { this.props.showOrderBook ? showOrderBook(this.props) : <Spinner type='table' /> }
+              { this.props.showOrderBook ? iOrderBook(this.props) : <Spinner type='table' /> }
             </table>
           </div>
         </div>
@@ -55,7 +56,7 @@ function mapStateToProps(state) {
 
   return {
     orderBook: orderBookSelector(state),
-    showOrderBook: orderBookLoadedSelector(state)
+    showOrderBook: orderBookLoadedSelector(state)//bool
   }
 }
 
