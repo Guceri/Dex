@@ -23,15 +23,16 @@ export const loadWeb3 = async (dispatch) => {
 }
 
 export const loadAccount = async (web3, dispatch) => {
-  const accounts = await web3.eth.getAccounts()
-  const account = await accounts[0]
-  if(typeof account !== 'undefined'){
-    dispatch(web3AccountLoaded(account))
-    return account
-  } else {
-    window.alert('Please login with MetaMask')
-    return null
-  }
+    const accounts = await web3.eth.getAccounts()
+    const account = await accounts[0]
+
+    if(typeof account !== 'undefined'){
+      dispatch(web3AccountLoaded(account))
+      return account
+    } else {
+      window.alert('Please login with MetaMask')
+      return null
+    }
 }
 
 export const loadToken = async (web3, networkId, dispatch) => {
@@ -40,7 +41,7 @@ export const loadToken = async (web3, networkId, dispatch) => {
     dispatch(tokenLoaded(token))
     return token
   } catch (error) {
-    console.log('Contract not deployed to the current network. Please select another network with Metamask.')
+    console.log('Contract not deployed to the current network. Please select the <INSERT NETWORK> network with Metamask.')
     return null
   }
 }
@@ -51,7 +52,7 @@ export const loadExchange = async (web3, networkId, dispatch) => {
     dispatch(exchangeLoaded(exchange))
     return exchange
   } catch (error) {
-    console.log('Contract not deployed to the current network. Please select another network with Metamask.')
+    console.log('Contract not deployed to the current network. Please select <INSERT NETWORK>  network with Metamask.')
     return null
   }
 }

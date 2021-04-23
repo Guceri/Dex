@@ -16,7 +16,18 @@ class App extends Component {
     this.loadBlockchainData(this.props.dispatch)
   }
 
-  async loadBlockchainData(dispatch) {
+async loadBlockchainData(dispatch) {
+
+    //refresh page on network change
+    window.ethereum.on('chainChanged', (chainId) => {
+      window.location.reload();
+    });
+
+    //refresh user account on account change
+    window.ethereum.on('accountsChanged', (accounts) => {
+      loadAccount(web3, dispatch)
+    });
+
     const web3 = await loadWeb3(dispatch)
     const networkId = await web3.eth.net.getId()
     await loadAccount(web3, dispatch)
