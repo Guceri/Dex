@@ -62,6 +62,7 @@ const decorateFilledOrders = (orders) => {
     })
   )
 }
+ 
 
 const decorateOrder = (order) => {
   let etherAmount

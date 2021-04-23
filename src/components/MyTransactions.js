@@ -80,7 +80,7 @@ class MyTransactions extends Component {
     )
   }
 }
-
+ 
 function mapStateToProps(state) {
 
   //console log here to see selectors in chrome console

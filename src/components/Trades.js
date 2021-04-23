@@ -48,6 +48,7 @@ class Trades extends Component {
   }
 }
 
+
 function mapStateToProps(state) {
   return {
     filledOrdersLoaded: filledOrdersLoadedSelector(state),
