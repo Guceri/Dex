@@ -79,18 +79,3 @@ export const loadAllOrders = async (exchange, dispatch) => {
   // Add open orders to the redux store
   dispatch(allOrdersLoaded(allOrders))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -11,6 +11,7 @@ import {
 } from '../store/interactions'
 import { contractsLoadedSelector } from '../store/selectors'
 
+
 class App extends Component {
   UNSAFE_componentWillMount() {
     this.loadBlockchainData(this.props.dispatch)
@@ -18,13 +19,13 @@ class App extends Component {
 
 async loadBlockchainData(dispatch) {
 
-    //refresh page on network change
-    window.ethereum.on('chainChanged', (chainId) => {
+    //refresh page on network change event
+    window.ethereum.on('chainChanged', () => {
       window.location.reload();
     });
 
-    //refresh user account on account change
-    window.ethereum.on('accountsChanged', (accounts) => {
+    //refresh user account on account change event
+    window.ethereum.on('accountsChanged', () => {
       loadAccount(web3, dispatch)
     });
 
