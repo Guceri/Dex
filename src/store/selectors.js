@@ -54,7 +54,7 @@ const decorateFilledOrders = (orders) => {
   // Track previous order to compare history
   let previousOrder = orders[0]
   return(
-    orders.map((order) => {
+    orders.map((order) => { //maps are basically for loops
       order = decorateOrder(order)
       order = decorateFilledOrder(order, previousOrder)
       previousOrder = order // Update the previous order once it's decorated
@@ -174,3 +174,94 @@ const decorateOrderBookOrder = (order) => {
     orerFillClass: orderType === 'buy' ? 'sell' : 'buy'
   })
 }
+
+//check if user filled orders are loaded
+export const myFilledOrdersLoadedSelector = createSelector(filledOrdersLoaded, loaded => loaded)
+
+//get user orders
+export const myFilledOrdersSelector = createSelector(
+  account,
+  filledOrders,
+  (account, orders) => {
+    //find user orders that were created by user or filled by user using account connected via metaMask
+    orders = orders.filter((o) => o.user === account || o.userfill === account)
+    //sort by date ascending
+    orders = orders.sort((a,b) => a.timestamp -b.timestamp)
+    //decorate filled orders
+    orders = decorateMyFilledOrders(orders, account)
+    return orders
+  }
+)
+
+const decorateMyFilledOrders = (orders, account) => {
+  return(
+    orders.map((order) => {
+      order = decorateOrder(order) //timestamp & price formatting
+      order = decorateMyFilledOrder(order, account)
+      return(order)
+    })
+  )
+}
+
+const decorateMyFilledOrder = (order, account) => {
+
+  //break up user orders into orders created by user (order.user) and orders filled by user (in this case just false)
+  const myOrder = order.user === account //metaMask account: order.user are orders CREATED by users
+
+  let orderType
+
+  if(myOrder) {
+    orderType = order.tokenGive === ETHER_ADDRESS ? 'buy' : 'sell' //if user is giving eth: buy order
+  } else {
+    orderType = order.tokenGivve === ETHER_ADDRESS ? 'sell' : 'buy' //if nonuser is giving eth: sell order
+  }
+
+  return({
+    ...order,//add to the existing order object
+    orderType,//user buy or user sell
+    orderTypeClass: (orderType === 'buy' ? GREEN : RED),//color formatting
+    orderSign: (orderType === 'buy' ? '+' : '-')//sign formatting
+  })
+}
+
+//if orderbook loaded, then user open orders loaded
+export const myOpenOrdersLoadedSelector = createSelector(orderBookLoaded, loaded => loaded)
+
+export const myOpenOrdersSelector = createSelector(
+  account,
+  openOrders,
+  (account, orders) => {
+    orders = orders.filter((o) => o.user === account)
+    orders = decorateMyOpenOrders(orders)
+    orders = orders.sort((a,b) => b.timestamp -a.timestamp)
+    return orders
+  }
+)
+
+const decorateMyOpenOrders = (orders, account) => {
+  return(
+    orders.map((order) => {
+      order = decorateOrder(order)
+      order = decorateMyOpenOrder(order, account)
+      return(order)
+    })
+  )
+}
+
+const decorateMyOpenOrder = (order, account) => {
+  let orderType = order.tokenGive === ETHER_ADDRESS ? 'buy' : 'sell'
+
+  return ({
+    ...order,
+    orderType,
+    orderTypeClass: (orderType === 'buy' ? GREEN : RED)
+  })
+}
+
+
+
+
+
+
+
+

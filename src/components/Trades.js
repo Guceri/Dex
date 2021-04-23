@@ -25,7 +25,7 @@ const showFilledOrders = (filledOrders) => {
 class Trades extends Component {
   render() {
     return (
-      <div className="vertical">
+      <div className="vertical">jj
         <div className="card bg-dark text-white">
           <div className="card-header">
             Trades
@@ -51,7 +51,7 @@ class Trades extends Component {
 function mapStateToProps(state) {
   return {
     filledOrdersLoaded: filledOrdersLoadedSelector(state),
-    filledOrders: filledOrdersSelector(state),
+    filledOrders: filledOrdersSelector(state)
   }
 }
 
