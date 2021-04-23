@@ -7,7 +7,7 @@ import Trades from './Trades'
 import MyTransactions from './MyTransactions'
 
 class Content extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.loadBlockchainData(this.props.dispatch)
   }
 
