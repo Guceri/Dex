@@ -25,10 +25,10 @@ const showFilledOrders = (filledOrders) => {
 class Trades extends Component {
   render() {
     return (
-      <div className="vertical">jj
+      <div className="vertical">
         <div className="card bg-dark text-white">
-          <div className="card-header">
-            Trades
+          <div className="card-header text-center">
+            Trade History
           </div>
           <div className="card-body">
             <table className="table table-dark table-sm small">

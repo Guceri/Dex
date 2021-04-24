@@ -45,12 +45,12 @@ class MyTransactions extends Component {
   render() {
     return (
       <div className="card bg-dark text-white">
-        <div className="card-header">
-          My Transactions
+        <div className="card-header text-center">
+          Account Transactions
         </div>
         <div className="card-body">
           <Tabs defaultActiveKey="trades" className="bg-dark text-white">
-            <Tab eventKey="trades" title="Trades" className="bg-dark">
+            <Tab eventKey="trades" title="Filled Orders" className="bg-dark">
               <table className="table table-dark table-sm small">
                 <thead>
                   <tr>
@@ -62,7 +62,7 @@ class MyTransactions extends Component {
                 { this.props.showMyFilledOrders ? showMyFilledOrders(this.props.myFilledOrders) : <Spinner type="table" />}
               </table>
             </Tab>
-            <Tab eventKey="orders" title="Orders">
+            <Tab eventKey="orders" title="Open Orders">
               <table className="table table-dark table-sm small">
                 <thead>
                   <tr>
@@ -87,9 +87,9 @@ function mapStateToProps(state) {
 
   return {
     myFilledOrders: myFilledOrdersSelector(state),
-    showMyFilledOrders: myFilledOrdersLoadedSelector(state),
+    showMyFilledOrders: myFilledOrdersLoadedSelector(state),//bool
     myOpenOrders: myOpenOrdersSelector(state),
-    showMyOpenOrders: myOpenOrdersLoadedSelector(state)
+    showMyOpenOrders: myOpenOrdersLoadedSelector(state)//bool
   }
 }
 

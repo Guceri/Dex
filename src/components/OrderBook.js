@@ -35,7 +35,7 @@ class OrderBook extends Component {
     return (
       <div className="vertical">
         <div className="card bg-dark text-white">
-          <div className="card-header">
+          <div className="card-header text-center">
             Order Book
           </div>
           <div className="card-body order-book">

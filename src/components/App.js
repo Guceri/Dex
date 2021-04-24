@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import Navbar from './Navbar'
 import Content from './Content'
+import MetaMask from './MetaMask'
 import { connect } from 'react-redux'
 import {
   loadWeb3,
@@ -11,14 +12,12 @@ import {
 } from '../store/interactions'
 import { contractsLoadedSelector } from '../store/selectors'
 
-
 class App extends Component {
   UNSAFE_componentWillMount() {
     this.loadBlockchainData(this.props.dispatch)
   }
 
 async loadBlockchainData(dispatch) {
-
     //refresh page on network change event
     window.ethereum.on('chainChanged', () => {
       window.location.reload();
@@ -30,8 +29,11 @@ async loadBlockchainData(dispatch) {
     });
 
     const web3 = await loadWeb3(dispatch)
+
     const networkId = await web3.eth.net.getId()
+
     await loadAccount(web3, dispatch)
+
     const token = await loadToken(web3, networkId, dispatch)
     if(!token) {
       window.alert('Token smart contract not detected on the current network. Please select another network with Metamask.')
@@ -56,7 +58,7 @@ async loadBlockchainData(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    contractsLoaded: contractsLoadedSelector(state)
+    contractsLoaded: contractsLoadedSelector(state)//bool
   }
 }
 

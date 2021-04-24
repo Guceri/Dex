@@ -176,7 +176,10 @@ const decorateOrderBookOrder = (order) => {
 }
 
 //check if user filled orders are loaded
-export const myFilledOrdersLoadedSelector = createSelector(filledOrdersLoaded, loaded => loaded)
+export const myFilledOrdersLoadedSelector = createSelector(filledOrdersLoaded, account, (fol, acc) => {
+  //don't load without account
+  return(fol && typeof acc !== 'undefined' ? true : false)
+})
 
 //get user orders
 export const myFilledOrdersSelector = createSelector(
@@ -225,7 +228,10 @@ const decorateMyFilledOrder = (order, account) => {
 }
 
 //if orderbook loaded, then user open orders loaded
-export const myOpenOrdersLoadedSelector = createSelector(orderBookLoaded, loaded => loaded)
+export const myOpenOrdersLoadedSelector = createSelector(orderBookLoaded, account, (obl, acc) => {
+  //don't load without account
+  return(obl && typeof acc !== 'undefined' ? true : false)
+})
 
 export const myOpenOrdersSelector = createSelector(
   account,

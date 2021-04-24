@@ -30,8 +30,9 @@ export const loadAccount = async (web3, dispatch) => {
       dispatch(web3AccountLoaded(account))
       return account
     } else {
-      window.alert('Please login with MetaMask')
-      return null
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const account = accounts[0];
+      return account
     }
 }
 
