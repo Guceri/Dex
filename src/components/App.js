@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import './App.css'
 import Navbar from './Navbar'
 import Content from './Content'
-import MetaMask from './MetaMask'
 import { connect } from 'react-redux'
 import {
   loadWeb3,
@@ -50,7 +49,7 @@ async loadBlockchainData(dispatch) {
     return (
       <div>
         <Navbar />
-        { this.props.contractsLoaded ? <Content /> : <div className="content"></div> }
+        {this.props.contractsLoaded ? < Content/> : <div className="content"></div>}
       </div>
     );
   }
