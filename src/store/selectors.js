@@ -264,9 +264,22 @@ const decorateMyOpenOrder = (order, account) => {
   })
 }
 
+export const priceChartLoadedSelector = createSelector(filledOrdersLoaded, loaded => loaded)
 
+export const priceChartSelector = createSelector(
+  filledOrders,
+  (orders) => {
+      //sort orders by date ascending to compare history
+      orders = orders.sort((a,b) => a.timestamp - b.timestamp)
+      orders = orders.map((o) => decorateOrder(o))
 
-
+      return({
+        series:[{
+          data: []
+        }]
+      })
+  }
+)
 
 
 
