@@ -55,6 +55,7 @@ function exchange(state = {}, action) {
       it is possible the order can already be filled by someone else (and the Trade event would be read incorrectly)
       findIndex()method returns the index of the first element in the array that satisfies the provided testing function
       pass in the order.id's from state and compare with the order.id submitted and find where it is. */
+      //FIXME - there is still an issue of crossed trades events if 2 people trade 2 seperate orders
       index = state.filledOrders.data.findIndex(order => order.id === action.order.id)
       //-1 -> not found
       if (index === -1){
