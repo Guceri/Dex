@@ -16,7 +16,7 @@ class App extends Component {
     this.loadBlockchainData(this.props.dispatch)
   }
 
-async loadBlockchainData(dispatch) {
+  async loadBlockchainData(dispatch) {
     //refresh page on network change event
     window.ethereum.on('chainChanged', () => {
       window.location.reload();

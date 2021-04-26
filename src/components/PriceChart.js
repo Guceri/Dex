@@ -3,16 +3,27 @@ import { connect } from 'react-redux'
 import Chart from 'react-apexcharts'
 import Spinner from './Spinner'
 import { chartOptions, dummyData } from './priceChart.config'
-import {
-  priceChartLoadedSelector,
-  priceChartSelector
-} from '../store/selectors'
+import { priceChartLoadedSelector, priceChartSelector } from '../store/selectors'
 
 
-const showPriceChart = () => {
+const priceSymbol = (lastPriceChange) => {
+  let output
+  if(lastPriceChange === '+') {
+    output = <span className="text-success">&#9650;</span> // Green up triangle
+  } else {
+    output = <span className="text-danger">&#9660;</span> // Red down triangle
+  }
+  return(output)
+}
+
+//chart takes options, series & type (see docs)
+const showPriceChart = (priceChart) => {
   return(
     <div className="price-chart">
-      <Chart options={chartOptions} series={dummyData} type='candlestick' width='100%' height='100%' />
+      <div className="price">
+        <h6>DAPP/ETH &nbsp; {priceSymbol(priceChart.lastPriceChange)} &nbsp; {priceChart.lastPrice}</h6>
+      </div>
+      <Chart options={chartOptions} series={priceChart.series} type='candlestick' width='100%' height='100%' />
     </div>
   )
 }
@@ -25,7 +36,7 @@ class PriceChart extends Component {
           Price Chart
         </div>
         <div className="card-body">
-          {showPriceChart()}
+          {this.props.priceChartLoaded ? showPriceChart(this.props.priceChart) : <Spinner />}
         </div>
       </div>
     )
@@ -33,10 +44,6 @@ class PriceChart extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log({
-    priceChartLoaded: priceChartLoadedSelector(state),
-    priceChart: priceChartSelector(state)
-  })
   return {
     priceChartLoaded: priceChartLoadedSelector(state),
     priceChart: priceChartSelector(state)
@@ -44,4 +51,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(PriceChart);
-
