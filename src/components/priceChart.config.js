@@ -36,7 +36,7 @@ export const chartOptions = {
   xaxis: {
     type: 'datetime',
     labels: {
-      show: true,
+      //show: true,
       style: {
           colors: '#fff',
           fontSize: '8px',
@@ -44,9 +44,11 @@ export const chartOptions = {
       },
     },
   },
+
+
   yaxis: {
     labels: {
-      show: true,
+      //show: true,
       minWidth: 0,
       maxWidth: 160,
       style: {
@@ -59,6 +61,10 @@ export const chartOptions = {
       rotate: 0,
     }
   }
+
+
+
+
 }
 
 export const dummyData = [

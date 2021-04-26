@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Chart from 'react-apexcharts'
 import Spinner from './Spinner'
-import { chartOptions, dummyData } from './priceChart.config'
+import { chartOptions } from './priceChart.config'
 import { priceChartLoadedSelector, priceChartSelector } from '../store/selectors'
 
 
@@ -23,7 +23,7 @@ const showPriceChart = (priceChart) => {
       <div className="price">
         <h6>DAPP/ETH &nbsp; {priceSymbol(priceChart.lastPriceChange)} &nbsp; {priceChart.lastPrice}</h6>
       </div>
-      <Chart options={chartOptions} series={priceChart.series} type='candlestick' width='100%' height='100%' />
+      <Chart options={chartOptions} series={priceChart.series} type='candlestick' width='95%' height='100%' />
     </div>
   )
 }
@@ -32,7 +32,7 @@ class PriceChart extends Component {
   render() {
     return(
       <div className="card bg-dark text-white">
-        <div className="card-header">
+        <div className="card-header text-center">
           Price Chart
         </div>
         <div className="card-body">

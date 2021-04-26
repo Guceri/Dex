@@ -8,7 +8,9 @@ class Navbar extends Component {
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
         <a 
           className="navbar-brand" 
-          href="https://github.com/Guceri" target="_blank"
+          href="https://github.com/Guceri" 
+          target="_blank" 
+          rel="noopener noreferrer"
         >
           Rinkeby Token Exchange
         </a>
@@ -19,7 +21,7 @@ class Navbar extends Component {
           <li className="nav-item">
             <a
               className="nav-link small"
-              href={`https://etherscan.io/address/${this.props.account}`}
+              href={`https://rinkeby.etherscan.io/address/${this.props.account}`}
               target="_blank"
               rel="noopener noreferrer"
             >
