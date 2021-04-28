@@ -32,6 +32,7 @@ import {
 } from '../store/actions'
 
 //TODO - balances don't update automatically when a withdraw/deposit is made
+//TODO - have only the balance update, not the entire body
 const balanceForm = (props) => {
   const { 
     dispatch,

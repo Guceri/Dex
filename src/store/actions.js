@@ -6,6 +6,13 @@ export function web3Loaded(connection) {
   }
 }
 
+export function networkLoaded(networkId) {
+  return {
+    type: 'NETWORK_LOADED',
+    networkId
+  }
+}
+
 export function web3AccountLoaded(account) {
   return {
     type: 'WEB3_ACCOUNT_LOADED',
@@ -105,11 +112,23 @@ export function exchangeTokenBalanceLoaded(balance) {
   }
 }
 
-export function balancesLoaded(user, balance) {
+export function balancesLoaded() {
   return {
-    type: 'BALANCES_LOADED',
-    balance: balance,
-    user: user
+    type: 'BALANCES_LOADED'
+  }
+}
+
+export function ethExchangeBalancesUpdating(balance) {
+  return {
+    type: 'ETH_EXCHANGE_BALANCE_UPDATING',
+    balance
+  }
+}
+
+export function tokenExchangeBalancesUpdating(balance) {
+  return {
+    type: 'TOKEN_EXCHANGE_BALANCE_UPDATING',
+    balance
   }
 }
 

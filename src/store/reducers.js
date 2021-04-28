@@ -8,6 +8,8 @@ function web3(state = {}, action) {
       return { ...state, account: action.account }
     case 'ETHER_BALANCE_LOADED':
       return { ...state, balance: action.balance }
+    case 'NETWORK_LOADED':
+      return { ...state, networkId: action.networkId }
     default:
       return state
   }
@@ -84,16 +86,11 @@ function exchange(state = {}, action) {
     case 'BALANCES_LOADING':
       return { ...state, balancesLoading: true }
     case 'BALANCES_LOADED':
-      //TODO - update the balances using another action item (this one is taken on initialization of site)
-      // if (window.metaMask_account === action.user) {
-      //   //exchange.etherBalance        
-      //   eth_balance = action.balance
-      //   //web3.balance
-      //   //token.balance
-      //   //exchange.tokenBalance          
-      // }
       return { ...state, balancesLoading: false}
-
+    case 'ETH_EXCHANGE_BALANCE_UPDATING':
+      return { ...state, etherBalance: action.balance }
+    case 'TOKEN_EXCHANGE_BALANCE_UPDATING': 
+      return { ...state, tokenBalance: action.balance }
     case 'ETHER_DEPOSIT_AMOUNT_CHANGED':
       return { ...state, etherDepositAmount: action.amount }
     case 'ETHER_WITHDRAW_AMOUNT_CHANGED':

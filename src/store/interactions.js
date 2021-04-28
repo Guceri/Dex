@@ -1,6 +1,7 @@
 import Web3 from 'web3'
 import {
   web3Loaded,
+  networkLoaded,
   web3AccountLoaded,
   tokenLoaded,
   exchangeLoaded,
@@ -16,7 +17,9 @@ import {
   exchangeEtherBalanceLoaded,
   exchangeTokenBalanceLoaded,
   balancesLoaded,
-  balancesLoading
+  balancesLoading,
+  ethExchangeBalancesUpdating,
+  tokenExchangeBalancesUpdating
 } from './actions'
 import Token from '../abis/Token.json'
 import Exchange from '../abis/Exchange.json'
@@ -33,23 +36,29 @@ export const loadWeb3 = async (dispatch) => {
   }
 }
 
+export const loadNetworkId = async (web3, dispatch) => {
+  const networkId = await web3.eth.net.getId()
+  dispatch(networkLoaded(networkId))
+  return networkId
+}
+
+
 export const loadAccount = async (web3, dispatch) => {
     const accounts = await web3.eth.getAccounts()
     const account = await accounts[0]
 
     if(typeof account !== 'undefined'){
       dispatch(web3AccountLoaded(account))
-      window.metaMask_account = account
       return account
     } else {
       //make metaMask pop up to log into
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       const account = accounts[0];
-      window.metaMask_account = account
       return account
     }
 }
 
+//TODO - insert network name
 export const loadToken = async (web3, networkId, dispatch) => {
   try {
     const token = new web3.eth.Contract(Token.abi, Token.networks[networkId].address)
@@ -106,25 +115,59 @@ export const cancelOrder = (dispatch, exchange, order, account) => {
   })
 }
 
-export const subscribeToEvents = async (exchange, dispatch) => {
-  let user, balance
+export const subscribeToEvents = async (web3, account, networkId, exchange, token, dispatch) => {
+
+  let user, depositToken, withdrawToken, exchangeBalance,  walletBalance
+
   exchange.events.Cancel({}, (error, event) => {
     dispatch(orderCancelled(event.returnValues))
   })
   exchange.events.Trade({}, (error, event) => {
     dispatch(orderFilled(event.returnValues))
   })
-  //TODO - deposit/withdraw can be for ETH or the token, might need adjusting to figure out what is being changed
-  exchange.events.Deposit({}, (error, event) => {
-    user = event.returnValues.user
-    //gives the exchange balance of the user
-    balance = Web3.utils.fromWei(event.returnValues.balance, 'ether')
-    dispatch(balancesLoaded(user, balance))
+
+  exchange.events.Deposit({}, async (error, event) => {
+    user = event.returnValues.user //user account
+    depositToken = event.returnValues.token //address of token
+    exchangeBalance = event.returnValues.balance //balance of user on the exchange
+
+    //Eth Deposit
+    if (depositToken === ETHER_ADDRESS && user === account){
+      walletBalance = await web3.eth.getBalance(account)
+      dispatch(ethExchangeBalancesUpdating(exchangeBalance))
+      dispatch(etherBalanceLoaded(walletBalance))
+      dispatch(balancesLoaded())
+    }
+
+    //Token Deposit
+    if (depositToken === Token.networks[networkId].address && user === account){
+      walletBalance = await token.methods.balanceOf(account).call()
+      dispatch(tokenExchangeBalancesUpdating(exchangeBalance)) 
+      dispatch(tokenBalanceLoaded(walletBalance)) 
+      dispatch(balancesLoaded())
+    }
   })
-  exchange.events.Withdraw({}, (error, event) => {
-    user = event.returnValues.user
-    balance = Web3.utils.fromWei(event.returnValues.balance, 'ether')
-    dispatch(balancesLoaded(user, balance))
+
+  exchange.events.Withdraw({}, async (error, event) => {
+    user = event.returnValues.user //user account
+    withdrawToken = event.returnValues.token //address of token
+    exchangeBalance = event.returnValues.balance //balance of user on the exchange
+
+    //Eth withdraw
+    if (withdrawToken === ETHER_ADDRESS && user === account){
+      walletBalance = await web3.eth.getBalance(account)
+      dispatch(ethExchangeBalancesUpdating(exchangeBalance))
+      dispatch(etherBalanceLoaded(walletBalance))
+      dispatch(balancesLoaded())
+    }
+
+    //Token withdraw
+    if (withdrawToken === Token.networks[networkId].address && user === account){
+      walletBalance = await token.methods.balanceOf(account).call()
+      dispatch(tokenExchangeBalancesUpdating(exchangeBalance)) 
+      dispatch(tokenBalanceLoaded(walletBalance)) 
+      dispatch(balancesLoaded())
+    }
   })
 }
 

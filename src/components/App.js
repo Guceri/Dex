@@ -5,11 +5,13 @@ import Content from './Content'
 import { connect } from 'react-redux'
 import {
   loadWeb3,
+  loadNetworkId,
   loadAccount,
   loadToken,
-  loadExchange
+  loadExchange,
+  subscribeToEvents
 } from '../store/interactions'
-import { contractsLoadedSelector } from '../store/selectors'
+import { contractsLoadedSelector, accountSelector, networkIdSelector } from '../store/selectors'
 
 class App extends Component {
   UNSAFE_componentWillMount() {
@@ -17,6 +19,7 @@ class App extends Component {
   }
 
   async loadBlockchainData(dispatch) {
+    
     //refresh page on network change event
     window.ethereum.on('chainChanged', () => {
       window.location.reload();
@@ -29,8 +32,8 @@ class App extends Component {
 
     const web3 = await loadWeb3(dispatch)
 
-    const networkId = await web3.eth.net.getId()
-
+    const networkId = await loadNetworkId(web3, dispatch)
+    
     await loadAccount(web3, dispatch)
 
     const token = await loadToken(web3, networkId, dispatch)
@@ -43,13 +46,15 @@ class App extends Component {
       window.alert('Exchange smart contract not detected on the current network. Please select another network with Metamask.')
       return
     }
+
+    await subscribeToEvents(web3, this.props.account, networkId, exchange, token, dispatch)
   }
 
   render() {
     return (
       <div>
         <Navbar />
-        {this.props.contractsLoaded ? < Content/> : <div className="content"></div>}
+        {this.props.contractsLoaded ? < Content /> : <div className="content"></div>}
       </div>
     );
   }
@@ -57,7 +62,9 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    contractsLoaded: contractsLoadedSelector(state)//bool
+    contractsLoaded: contractsLoadedSelector(state),//bool
+    account: accountSelector(state),
+    networkId: networkIdSelector(state)
   }
 }
 
