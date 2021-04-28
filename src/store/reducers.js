@@ -25,7 +25,7 @@ function token(state = {}, action) {
 }
 
 function exchange(state = {}, action) {
-  let index, data 
+  let index, data
 
   switch (action.type) {
     case 'EXCHANGE_LOADED':
@@ -83,20 +83,16 @@ function exchange(state = {}, action) {
       return { ...state, tokenBalance: action.balance }
     case 'BALANCES_LOADING':
       return { ...state, balancesLoading: true }
-
-      //TODO - update the balances on 
     case 'BALANCES_LOADED':
-      
-      return { 
-        ...state, 
-        balancesLoading: false,
-        //check if trade event is for our account
-        //exchange.etherBalance
-        //web3.balance
-        //token.balance
-        //exchange.tokenBalance
-      }
-
+      //TODO - update the balances using another action item (this one is taken on initialization of site)
+      // if (window.metaMask_account === action.user) {
+      //   //exchange.etherBalance        
+      //   eth_balance = action.balance
+      //   //web3.balance
+      //   //token.balance
+      //   //exchange.tokenBalance          
+      // }
+      return { ...state, balancesLoading: false}
 
     case 'ETHER_DEPOSIT_AMOUNT_CHANGED':
       return { ...state, etherDepositAmount: action.amount }

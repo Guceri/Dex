@@ -39,11 +39,13 @@ export const loadAccount = async (web3, dispatch) => {
 
     if(typeof account !== 'undefined'){
       dispatch(web3AccountLoaded(account))
+      window.metaMask_account = account
       return account
     } else {
       //make metaMask pop up to log into
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       const account = accounts[0];
+      window.metaMask_account = account
       return account
     }
 }
@@ -115,6 +117,7 @@ export const subscribeToEvents = async (exchange, dispatch) => {
   //TODO - deposit/withdraw can be for ETH or the token, might need adjusting to figure out what is being changed
   exchange.events.Deposit({}, (error, event) => {
     user = event.returnValues.user
+    //gives the exchange balance of the user
     balance = Web3.utils.fromWei(event.returnValues.balance, 'ether')
     dispatch(balancesLoaded(user, balance))
   })
