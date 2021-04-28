@@ -30,9 +30,8 @@ import {
   tokenDepositAmountChanged,
   tokenWithdrawAmountChanged
 } from '../store/actions'
+import { normalizeUnits } from 'moment'
 
-//TODO - balances don't update automatically when a withdraw/deposit is made
-//TODO - have only the balance update, not the entire body
 const balanceForm = (props) => {
   const { 
     dispatch,
@@ -69,6 +68,11 @@ const balanceForm = (props) => {
               <td>{showForm ? etherBalance : <Spinner /> }</td>
               <td>{showForm ? exchangeEtherBalance : <Spinner /> }</td>
             </tr>
+            <tr>
+              <td>DAPP</td>
+              <td>{showForm ? tokenBalance : <Spinner /> }</td>
+              <td>{showForm ? exchangeTokenBalance : <Spinner /> }</td>
+            </tr>
           </tbody>
         </table>
         <form className="row" onSubmit={(event) => {
@@ -88,15 +92,7 @@ const balanceForm = (props) => {
             <button type="submit" className="btn btn-primary btn-block btn-sm">Deposit</button>
           </div>
         </form>
-        <table className="table table-dark table-sm small text-center">
-          <tbody>
-            <tr>
-              <td>DAPP</td>
-              <td>{showForm ? tokenBalance : <Spinner /> }</td>
-              <td>{showForm ? exchangeTokenBalance : <Spinner /> }</td>
-            </tr>
-          </tbody>
-        </table>
+        <br></br>
         <form className="row" onSubmit={(event) => {
           event.preventDefault()
           depositToken(dispatch, exchange, web3, token, tokenDepositAmount, account)
@@ -117,52 +113,49 @@ const balanceForm = (props) => {
       </Tab>
       <Tab eventKey="withdraw" title="Withdraw" className="bg-dark">
         <table className="table table-dark table-sm small text-center">
-            <thead>
-              <tr>
-                <th>Token</th>
-                <th>Wallet</th> 
-                <th>Exchange</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>ETH</td>
-                <td>{showForm ? etherBalance : <Spinner /> }</td>
-                <td>{showForm ? exchangeEtherBalance: <Spinner /> }</td>      
-              </tr>
-            </tbody>
-          </table>
-          <form className="row" onSubmit={(event) => {
-            event.preventDefault()
-            withdrawEther(dispatch, exchange, web3, etherWithdrawAmount, account)
-            event.target.reset()
-            }}>
-            <div className="col-12 col-sm pr-sm-2">
-              <input
-              type="text"
-              placeholder="ETH Amount"
-              onChange={(e) => dispatch( etherWithdrawAmountChanged(e.target.value) )}
-              className="form-control form-control-sm bg-dark text-white"
-              required />
-            </div>
-            <div className="col-12 col-sm-auto pl-sm-0">
-              <button type="submit" className="btn btn-primary btn-block btn-sm">Withdraw</button>
-            </div>
-          </form>
-          <table className="table table-dark table-sm small text-center">
-            <tbody>
-              <tr>
-                <td>DAPP</td>
-                <td>{showForm ? tokenBalance : <Spinner /> }</td>
-                <td>{showForm ? exchangeTokenBalance : <Spinner /> }</td>
-              </tr>
-            </tbody>
-          </table>
-          <form className="row" onSubmit={(event) => {
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Wallet</th> 
+              <th>Exchange</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ETH</td>
+              <td>{showForm ? etherBalance : <Spinner /> }</td>
+              <td>{showForm ? exchangeEtherBalance: <Spinner /> }</td>      
+            </tr>
+            <tr>
+              <td>DAPP</td>
+              <td>{showForm ? tokenBalance : <Spinner /> }</td>
+              <td>{showForm ? exchangeTokenBalance : <Spinner /> }</td>
+            </tr>
+          </tbody>
+        </table>
+        <form className="row" onSubmit={(event) => {
+          event.preventDefault()
+          withdrawEther(dispatch, exchange, web3, etherWithdrawAmount, account)
+          event.target.reset()
+          }}>
+          <div className="col-12 col-sm pr-sm-2">
+            <input
+            type="text"
+            placeholder="ETH Amount"
+            onChange={(e) => dispatch( etherWithdrawAmountChanged(e.target.value) )}
+            className="form-control form-control-sm bg-dark text-white"
+            required />
+          </div>
+          <div className="col-12 col-sm-auto pl-sm-0">
+            <button type="submit" className="btn btn-primary btn-block btn-sm">Withdraw</button>
+          </div>
+        </form>
+        <br></br>
+        <form className="row" onSubmit={(event) => {
           event.preventDefault()
           withdrawToken(dispatch, exchange, web3, token, tokenWithdrawAmount, account)
           event.target.reset()
-        }}>
+          }}>
           <div className="col-12 col-sm pr-sm-2">
             <input
             type="text"
@@ -207,6 +200,12 @@ class Balance extends Component {
  
 function mapStateToProps(state) {
   const balancesLoading = balancesLoadingSelector(state)
+  console.log(
+    {
+      etherBalance: etherBalanceSelector(state),
+      tokenBalance: tokenBalanceSelector(state),
+    }
+  )
   return {
     account: accountSelector(state),
     exchange: exchangeSelector(state),
