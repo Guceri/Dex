@@ -105,17 +105,23 @@ export const cancelOrder = (dispatch, exchange, order, account) => {
 }
 
 export const subscribeToEvents = async (exchange, dispatch) => {
+  let user, balance
   exchange.events.Cancel({}, (error, event) => {
     dispatch(orderCancelled(event.returnValues))
   })
   exchange.events.Trade({}, (error, event) => {
     dispatch(orderFilled(event.returnValues))
   })
+  //TODO - deposit/withdraw can be for ETH or the token, might need adjusting to figure out what is being changed
   exchange.events.Deposit({}, (error, event) => {
-    dispatch(balancesLoaded())
+    user = event.returnValues.user
+    balance = Web3.utils.fromWei(event.returnValues.balance, 'ether')
+    dispatch(balancesLoaded(user, balance))
   })
   exchange.events.Withdraw({}, (error, event) => {
-    dispatch(balancesLoaded())
+    user = event.returnValues.user
+    balance = Web3.utils.fromWei(event.returnValues.balance, 'ether')
+    dispatch(balancesLoaded(user, balance))
   })
 }
 
@@ -146,7 +152,7 @@ export const loadBalances = async (dispatch, web3, exchange, token, account) => 
     // Token balance in exchange 
     const exchangeTokenBalance = await exchange.methods.balanceOf(token.options.address, account).call()
     dispatch(exchangeTokenBalanceLoaded(exchangeTokenBalance))
-    // Trigger all balances loaded
+    // Trigger all balances loaded~
     dispatch(balancesLoaded())
   } else {
     window.alert('Please login with MetaMask')
@@ -161,7 +167,10 @@ export const depositEther = (dispatch, exchange, web3, amount, account) => {
   })
   .on('error',(error) => {
     console.error(error)
-    window.alert(`There was an error!`)
+    //4001 error is pressing the reject button on metamask confirmation
+    if (error.code !== 4001){
+      window.alert(`There was an error!`)
+    }
   })
 }
 
@@ -172,7 +181,10 @@ export const withdrawEther = (dispatch, exchange, web3, amount, account) => {
   })
   .on('error',(error) => {
     console.error(error)
-    window.alert(`There was an error!`)
+    //4001 error is pressing the reject button on metamask confirmation
+    if (error.code !== 4001){
+      window.alert(`There was an error!`)
+    }
   })
 }
 
@@ -189,7 +201,10 @@ export const depositToken = (dispatch, exchange, web3, token, amount, account) =
     })
     .on('error',(error) => {
       console.error(error)
-      window.alert(`There was an error!`)
+      //4001 error is pressing the reject button on metamask confirmation
+      if (error.code !== 4001){
+        window.alert(`There was an error!`)
+      }
     })
   })
 }
@@ -201,6 +216,9 @@ export const withdrawToken = (dispatch, exchange, web3, token, amount, account) 
   })
   .on('error',(error) => {
     console.error(error)
-    window.alert(`There was an error!`)
+    //4001 error is pressing the reject button on metamask confirmation
+    if (error.code !== 4001){
+      window.alert(`There was an error!`)
+    }
   })
 }

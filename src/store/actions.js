@@ -105,9 +105,11 @@ export function exchangeTokenBalanceLoaded(balance) {
   }
 }
 
-export function balancesLoaded() {
+export function balancesLoaded(user, balance) {
   return {
-    type: 'BALANCES_LOADED'
+    type: 'BALANCES_LOADED',
+    balance: balance,
+    user: user
   }
 }
 

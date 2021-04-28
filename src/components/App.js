@@ -24,7 +24,7 @@ class App extends Component {
 
     //refresh user account on account change event
     window.ethereum.on('accountsChanged', () => {
-      loadAccount(web3, dispatch)
+      loadAccount(web3, dispatch) //returns account
     });
 
     const web3 = await loadWeb3(dispatch)

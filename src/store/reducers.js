@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux'
 
 function web3(state = {}, action) {
   switch (action.type) {
@@ -83,8 +83,21 @@ function exchange(state = {}, action) {
       return { ...state, tokenBalance: action.balance }
     case 'BALANCES_LOADING':
       return { ...state, balancesLoading: true }
+
+      //TODO - update the balances on 
     case 'BALANCES_LOADED':
-      return { ...state, balancesLoading: false }
+      
+      return { 
+        ...state, 
+        balancesLoading: false,
+        //check if trade event is for our account
+        //exchange.etherBalance
+        //web3.balance
+        //token.balance
+        //exchange.tokenBalance
+      }
+
+
     case 'ETHER_DEPOSIT_AMOUNT_CHANGED':
       return { ...state, etherDepositAmount: action.amount }
     case 'ETHER_WITHDRAW_AMOUNT_CHANGED':
