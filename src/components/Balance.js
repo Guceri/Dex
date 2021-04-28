@@ -47,13 +47,15 @@ const balanceForm = (props) => {
     token,
     tokenDepositAmount,
     etherWithdrawAmount,
-    tokenWithdrawAmount
+    tokenWithdrawAmount,
+    showForm
   } = props
+
 
   return (
     <Tabs defaultActiveKey="deposit" className="bg-dark text-white">
       <Tab eventKey="deposit" title="Deposit" className="bg-dark">
-        <table className="table table-dark table-sm small">
+        <table className="table table-dark table-sm small text-center">
           <thead>
             <tr>
               <th>Token</th>
@@ -64,14 +66,15 @@ const balanceForm = (props) => {
           <tbody>
             <tr>
               <td>ETH</td>
-              <td>{etherBalance}</td>
-              <td>{exchangeEtherBalance}</td>
+              <td>{showForm ? etherBalance : <Spinner /> }</td>
+              <td>{showForm ? exchangeEtherBalance : <Spinner /> }</td>
             </tr>
           </tbody>
         </table>
         <form className="row" onSubmit={(event) => {
           event.preventDefault()
           depositEther(dispatch, exchange, web3, etherDepositAmount, account)
+          event.target.reset()
         }}>
           <div className="col-12 col-sm pr-sm-2">
             <input
@@ -85,18 +88,19 @@ const balanceForm = (props) => {
             <button type="submit" className="btn btn-primary btn-block btn-sm">Deposit</button>
           </div>
         </form>
-        <table className="table table-dark table-sm small">
+        <table className="table table-dark table-sm small text-center">
           <tbody>
             <tr>
               <td>DAPP</td>
-              <td>{tokenBalance}</td>
-              <td>{exchangeTokenBalance}</td>
+              <td>{showForm ? tokenBalance : <Spinner /> }</td>
+              <td>{showForm ? exchangeTokenBalance : <Spinner /> }</td>
             </tr>
           </tbody>
         </table>
         <form className="row" onSubmit={(event) => {
           event.preventDefault()
           depositToken(dispatch, exchange, web3, token, tokenDepositAmount, account)
+          event.target.reset()
         }}>
           <div className="col-12 col-sm pr-sm-2">
             <input
@@ -112,7 +116,7 @@ const balanceForm = (props) => {
         </form>
       </Tab>
       <Tab eventKey="withdraw" title="Withdraw" className="bg-dark">
-        <table className="table table-dark table-sm small">
+        <table className="table table-dark table-sm small text-center">
             <thead>
               <tr>
                 <th>Token</th>
@@ -123,14 +127,15 @@ const balanceForm = (props) => {
             <tbody>
               <tr>
                 <td>ETH</td>
-                <td>{etherBalance}</td>
-                <td>{exchangeEtherBalance}</td>
+                <td>{showForm ? etherBalance : <Spinner /> }</td>
+                <td>{showForm ? exchangeEtherBalance: <Spinner /> }</td>      
               </tr>
             </tbody>
           </table>
           <form className="row" onSubmit={(event) => {
             event.preventDefault()
             withdrawEther(dispatch, exchange, web3, etherWithdrawAmount, account)
+            event.target.reset()
             }}>
             <div className="col-12 col-sm pr-sm-2">
               <input
@@ -144,18 +149,19 @@ const balanceForm = (props) => {
               <button type="submit" className="btn btn-primary btn-block btn-sm">Withdraw</button>
             </div>
           </form>
-          <table className="table table-dark table-sm small">
+          <table className="table table-dark table-sm small text-center">
             <tbody>
               <tr>
                 <td>DAPP</td>
-                <td>{tokenBalance}</td>
-                <td>{exchangeTokenBalance}</td>
+                <td>{showForm ? tokenBalance : <Spinner /> }</td>
+                <td>{showForm ? exchangeTokenBalance : <Spinner /> }</td>
               </tr>
             </tbody>
           </table>
           <form className="row" onSubmit={(event) => {
           event.preventDefault()
           withdrawToken(dispatch, exchange, web3, token, tokenWithdrawAmount, account)
+          event.target.reset()
         }}>
           <div className="col-12 col-sm pr-sm-2">
             <input
@@ -173,8 +179,6 @@ const balanceForm = (props) => {
     </Tabs>
   )
 }
-
-
 
 class Balance extends Component {
 
@@ -194,7 +198,7 @@ class Balance extends Component {
           Balance
         </div>
         <div className="card-body">
-          { this.props.showForm ? balanceForm(this.props) : <Spinner />}
+          { balanceForm(this.props) }
         </div>
       </div>
     )
