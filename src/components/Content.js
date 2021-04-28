@@ -6,6 +6,7 @@ import OrderBook from './OrderBook'
 import Trades from './Trades'
 import MyTransactions from './MyTransactions'
 import PriceChart from './PriceChart'
+import Balance from './Balance'
 
 class Content extends Component {
   UNSAFE_componentWillMount() {
@@ -22,13 +23,7 @@ class Content extends Component {
     return (
       <div className="content">
         <div className="vertical-split">
-          <div className="card bg-dark text-white">
-            <div className="card-header">
-              Card Title
-            </div>
-            <div className="card-body">
-            </div>
-          </div>
+          <Balance />
           <div className="card bg-dark text-white">
             <div className="card-header">
               Card Title
