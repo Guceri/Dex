@@ -11,6 +11,12 @@ import {
 } from '../store/selectors'
 import { fillOrder } from '../store/interactions'
 
+
+//TODO - Center orderbook
+//TODO - orderbook should only have size" and Price
+//TODO - calculate the spread for the center divider
+//TODO - get rid of pop up when rejecting order form metmask
+
 const renderOrder = (order, props) => {
   const { dispatch, exchange, account } = props
 
@@ -31,7 +37,6 @@ const renderOrder = (order, props) => {
       >
         <td>{order.tokenAmount}</td>
         <td className={`text-${order.orderTypeClass}`}>{order.tokenPrice}</td>
-        <td>{order.etherAmount}</td>
       </tr>
     </OverlayTrigger>
   )
@@ -42,9 +47,8 @@ const iOrderBook = (props) => {
     <tbody>
       {props.orderBook.sellOrders.map((order) => renderOrder(order, props))}
       <tr>
-        <th>DAPP</th>
-        <th>DAPP/ETH</th>
-        <th>ETH</th>
+        <th>LINK</th>
+        <th>LINK/ETH</th>
       </tr>
       {props.orderBook.buyOrders.map((order) => renderOrder(order, props))}
     </tbody>
@@ -60,7 +64,7 @@ class OrderBook extends Component {
             Order Book
           </div>
           <div className="card-body order-book">
-            <table className="table table-dark table-sm small">
+            <table className="table table-dark table-sm small text-center">
               { this.props.showOrderBook ? iOrderBook(this.props) : <Spinner type='table' /> }
             </table>
           </div>

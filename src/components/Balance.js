@@ -71,7 +71,7 @@ const balanceForm = (props) => {
               <td>{!ethBalanceLoading ? exchangeEtherBalance : <Spinner /> }</td>
             </tr>
             <tr>
-              <td>DAPP</td>
+              <td>LINK</td>
               <td>{!tokenBalanceLoading ? tokenBalance : <Spinner /> }</td>
               <td>{!tokenBalanceLoading ? exchangeTokenBalance : <Spinner /> }</td>
             </tr>
@@ -103,7 +103,7 @@ const balanceForm = (props) => {
           <div className="col-12 col-sm pr-sm-2">
             <input
             type="text"
-            placeholder="DAPP Amount"
+            placeholder="LINK Amount"
             onChange={(e) => dispatch( tokenDepositAmountChanged(e.target.value) )}
             className="form-control form-control-sm bg-dark text-white"
             required />
@@ -129,7 +129,7 @@ const balanceForm = (props) => {
               <td>{!ethBalanceLoading ? exchangeEtherBalance: <Spinner /> }</td>      
             </tr>
             <tr>
-              <td>DAPP</td>
+              <td>LINK</td>
               <td>{!tokenBalanceLoading ? tokenBalance : <Spinner /> }</td>
               <td>{!tokenBalanceLoading ? exchangeTokenBalance : <Spinner /> }</td>
             </tr>
@@ -161,7 +161,7 @@ const balanceForm = (props) => {
           <div className="col-12 col-sm pr-sm-2">
             <input
             type="text"
-            placeholder="DAPP Amount"
+            placeholder="LINK Amount"
             onChange={(e) => dispatch( tokenWithdrawAmountChanged(e.target.value) )}
             className="form-control form-control-sm bg-dark text-white"
             required />
