@@ -332,9 +332,18 @@ export const orderCancellingSelector = createSelector(orderCancelling, status =>
 const orderFilling = state => get(state, 'exchange.orderFilling', false)
 export const orderFillingSelector = createSelector(orderFilling, status => status)
 
-//Balances
-const balancesLoading = state => get(state, 'exchange.balancesLoading', true)
-export const balancesLoadingSelector = createSelector(balancesLoading, status => status)
+//=============================================================================================================
+//Balances-> True/False
+
+const ethBalancesLoading = state => get(state, 'exchange.ethBalancesLoading', true)
+export const ethBalanceLoadingSelector = createSelector(ethBalancesLoading, status => status)
+
+const tokenBalancesLoading = state => get(state, 'exchange.tokenBalancesLoading', true)
+export const tokenBalanceLoadingSelector = createSelector(tokenBalancesLoading, status => status)
+
+
+//=============================================================================================================
+
 
 const etherBalance = state => get(state, 'web3.balance', 0)
 export const etherBalanceSelector = createSelector(

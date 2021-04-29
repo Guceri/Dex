@@ -18,7 +18,8 @@ import {
   tokenBalanceSelector,
   exchangeEtherBalanceSelector,
   exchangeTokenBalanceSelector,
-  balancesLoadingSelector,
+  ethBalanceLoadingSelector,
+  tokenBalanceLoadingSelector,
   etherDepositAmountSelector,
   etherWithdrawAmountSelector,
   tokenDepositAmountSelector,
@@ -30,7 +31,7 @@ import {
   tokenDepositAmountChanged,
   tokenWithdrawAmountChanged
 } from '../store/actions'
-import { normalizeUnits } from 'moment'
+
 
 const balanceForm = (props) => {
   const { 
@@ -47,10 +48,11 @@ const balanceForm = (props) => {
     tokenDepositAmount,
     etherWithdrawAmount,
     tokenWithdrawAmount,
-    showForm
+    ethBalanceLoading,
+    tokenBalanceLoading
   } = props
 
-
+//TODO - seperate spinner on withdraw/deposit
   return (
     <Tabs defaultActiveKey="deposit" className="bg-dark text-white">
       <Tab eventKey="deposit" title="Deposit" className="bg-dark">
@@ -65,13 +67,13 @@ const balanceForm = (props) => {
           <tbody>
             <tr>
               <td>ETH</td>
-              <td>{showForm ? etherBalance : <Spinner /> }</td>
-              <td>{showForm ? exchangeEtherBalance : <Spinner /> }</td>
+              <td>{!ethBalanceLoading ? etherBalance : <Spinner /> }</td>
+              <td>{!ethBalanceLoading ? exchangeEtherBalance : <Spinner /> }</td>
             </tr>
             <tr>
               <td>DAPP</td>
-              <td>{showForm ? tokenBalance : <Spinner /> }</td>
-              <td>{showForm ? exchangeTokenBalance : <Spinner /> }</td>
+              <td>{!tokenBalanceLoading ? tokenBalance : <Spinner /> }</td>
+              <td>{!tokenBalanceLoading ? exchangeTokenBalance : <Spinner /> }</td>
             </tr>
           </tbody>
         </table>
@@ -123,13 +125,13 @@ const balanceForm = (props) => {
           <tbody>
             <tr>
               <td>ETH</td>
-              <td>{showForm ? etherBalance : <Spinner /> }</td>
-              <td>{showForm ? exchangeEtherBalance: <Spinner /> }</td>      
+              <td>{!ethBalanceLoading ? etherBalance : <Spinner /> }</td>
+              <td>{!ethBalanceLoading ? exchangeEtherBalance: <Spinner /> }</td>      
             </tr>
             <tr>
               <td>DAPP</td>
-              <td>{showForm ? tokenBalance : <Spinner /> }</td>
-              <td>{showForm ? exchangeTokenBalance : <Spinner /> }</td>
+              <td>{!tokenBalanceLoading ? tokenBalance : <Spinner /> }</td>
+              <td>{!tokenBalanceLoading ? exchangeTokenBalance : <Spinner /> }</td>
             </tr>
           </tbody>
         </table>
@@ -199,13 +201,6 @@ class Balance extends Component {
 }
  
 function mapStateToProps(state) {
-  const balancesLoading = balancesLoadingSelector(state)
-  console.log(
-    {
-      etherBalance: etherBalanceSelector(state),
-      tokenBalance: tokenBalanceSelector(state),
-    }
-  )
   return {
     account: accountSelector(state),
     exchange: exchangeSelector(state),
@@ -215,13 +210,17 @@ function mapStateToProps(state) {
     tokenBalance: tokenBalanceSelector(state),
     exchangeEtherBalance: exchangeEtherBalanceSelector(state),
     exchangeTokenBalance: exchangeTokenBalanceSelector(state),
-    balancesLoading,
-    showForm: !balancesLoading,
+
+    ethBalanceLoading: ethBalanceLoadingSelector (state),
+    tokenBalanceLoading:tokenBalanceLoadingSelector (state),
+
     etherDepositAmount: etherDepositAmountSelector(state),
     etherWithdrawAmount: etherWithdrawAmountSelector(state),
     tokenDepositAmount: tokenDepositAmountSelector(state),
-    tokenWithdrawAmount: tokenWithdrawAmountSelector(state)
+    tokenWithdrawAmount: tokenWithdrawAmountSelector(state),
   }
 }
 
 export default connect(mapStateToProps)(Balance);
+
+

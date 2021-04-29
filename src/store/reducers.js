@@ -6,7 +6,7 @@ function web3(state = {}, action) {
       return { ...state,  connection: action.connection }
     case 'WEB3_ACCOUNT_LOADED':
       return { ...state, account: action.account }
-    case 'ETHER_BALANCE_LOADED':
+    case 'ETHER_BALANCE_LOADED': //loadBalances() & withdraw/deposit events
       return { ...state, balance: action.balance }
     case 'NETWORK_LOADED':
       return { ...state, networkId: action.networkId }
@@ -19,7 +19,7 @@ function token(state = {}, action) {
   switch (action.type) {
     case 'TOKEN_LOADED':
       return { ...state, loaded: true, contract: action.contract }
-    case 'TOKEN_BALANCE_LOADED':
+    case 'TOKEN_BALANCE_LOADED': //loadBalances() & withdraw/deposit events
       return { ...state, balance: action.balance}
     default:
       return state
@@ -79,18 +79,20 @@ function exchange(state = {}, action) {
           data
         }
       }
+
+      //loadBalances() & withdraw/deposit events
     case 'EXCHANGE_ETHER_BALANCE_LOADED':
       return { ...state, etherBalance: action.balance }
     case 'EXCHANGE_TOKEN_BALANCE_LOADED':
       return { ...state, tokenBalance: action.balance }
-    case 'BALANCES_LOADING':
-      return { ...state, balancesLoading: true }
-    case 'BALANCES_LOADED':
-      return { ...state, balancesLoading: false}
-    case 'ETH_EXCHANGE_BALANCE_UPDATING':
-      return { ...state, etherBalance: action.balance }
-    case 'TOKEN_EXCHANGE_BALANCE_UPDATING': 
-      return { ...state, tokenBalance: action.balance }
+    case 'ETH_BALANCES_LOADING':
+      return { ...state, ethBalancesLoading: true }
+    case 'ETH_BALANCES_LOADED':
+      return { ...state, ethBalancesLoading: false}
+    case 'TOKEN_BALANCES_LOADING':
+      return { ...state, tokenBalancesLoading: true }
+    case 'TOKEN_BALANCES_LOADED':
+      return { ...state, tokenBalancesLoading: false}
     case 'ETHER_DEPOSIT_AMOUNT_CHANGED':
       return { ...state, etherDepositAmount: action.amount }
     case 'ETHER_WITHDRAW_AMOUNT_CHANGED':

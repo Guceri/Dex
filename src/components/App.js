@@ -7,6 +7,7 @@ import {
   loadWeb3,
   loadNetworkId,
   loadAccount,
+  loadBalances,
   loadToken,
   loadExchange,
   subscribeToEvents
@@ -26,8 +27,9 @@ class App extends Component {
     });
 
     //refresh user account on account change event
-    window.ethereum.on('accountsChanged', () => {
-      loadAccount(web3, dispatch) //returns account
+    window.ethereum.on('accountsChanged', async () => {
+      await loadAccount(web3, dispatch) //returns account
+      await loadBalances(this.props.dispatch, web3, exchange, token, this.props.account)
     });
 
     const web3 = await loadWeb3(dispatch)
@@ -37,6 +39,7 @@ class App extends Component {
     await loadAccount(web3, dispatch)
 
     const token = await loadToken(web3, networkId, dispatch)
+  
     if(!token) {
       window.alert('Token smart contract not detected on the current network. Please select another network with Metamask.')
       return

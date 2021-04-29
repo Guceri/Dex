@@ -82,29 +82,33 @@ export function orderFilled(order) {
     order: order
   }
 }
-
-// Balances
+//=====================================================================================================
+//Deposit/Withdraw Event
+//loadBalances()
 export function etherBalanceLoaded(balance) {
   return {
     type: 'ETHER_BALANCE_LOADED',
     balance
   }
 }
-
+//Deposit/Withdraw Event
+//loadBalances()
 export function tokenBalanceLoaded(balance) {
   return {
     type: 'TOKEN_BALANCE_LOADED',
     balance
   }
 }
-
+//Deposit/Withdraw Event
+//loadBalances()
 export function exchangeEtherBalanceLoaded(balance) {
   return {
     type: 'EXCHANGE_ETHER_BALANCE_LOADED',
     balance
   }
 }
-
+//Deposit/Withdraw Event
+//loadBalances()
 export function exchangeTokenBalanceLoaded(balance) {
   return {
     type: 'EXCHANGE_TOKEN_BALANCE_LOADED',
@@ -112,53 +116,53 @@ export function exchangeTokenBalanceLoaded(balance) {
   }
 }
 
-export function balancesLoaded() {
+//=====================================================================================================
+
+export function ethBalancesLoaded() {
   return {
-    type: 'BALANCES_LOADED'
+    type: 'ETH_BALANCES_LOADED'
+  }
+}
+export function ethBalancesLoading() {
+  return {
+    type: 'ETH_BALANCES_LOADING'
+  }
+}
+export function tokenBalancesLoaded() {
+  return {
+    type: 'TOKEN_BALANCES_LOADED'
+  }
+}
+export function tokenBalancesLoading() {
+  return {
+    type: 'TOKEN_BALANCES_LOADING'
   }
 }
 
-export function ethExchangeBalancesUpdating(balance) {
-  return {
-    type: 'ETH_EXCHANGE_BALANCE_UPDATING',
-    balance
-  }
-}
+//=====================================================================================================
 
-export function tokenExchangeBalancesUpdating(balance) {
-  return {
-    type: 'TOKEN_EXCHANGE_BALANCE_UPDATING',
-    balance
-  }
-}
-
-export function balancesLoading() {
-  return {
-    type: 'BALANCES_LOADING'
-  }
-}
-
+//onChange Balance deposit form 
 export function etherDepositAmountChanged(amount) {
   return {
     type: 'ETHER_DEPOSIT_AMOUNT_CHANGED',
     amount
   }
 }
-
+//onChange Balance withdraw form 
 export function etherWithdrawAmountChanged(amount) {
   return {
     type: 'ETHER_WITHDRAW_AMOUNT_CHANGED',
     amount
   }
 }
-
+//onChange Balance deposit form 
 export function tokenDepositAmountChanged(amount) {
   return {
     type: 'TOKEN_DEPOSIT_AMOUNT_CHANGED',
     amount
   }
 }
-
+//onChange Balance withdraw form 
 export function tokenWithdrawAmountChanged(amount) {
   return {
     type: 'TOKEN_WITHDRAW_AMOUNT_CHANGED',

@@ -16,10 +16,10 @@ import {
   tokenBalanceLoaded,
   exchangeEtherBalanceLoaded,
   exchangeTokenBalanceLoaded,
-  balancesLoaded,
-  balancesLoading,
-  ethExchangeBalancesUpdating,
-  tokenExchangeBalancesUpdating
+  ethBalancesLoaded,
+  tokenBalancesLoaded,
+  ethBalancesLoading,
+  tokenBalancesLoading
 } from './actions'
 import Token from '../abis/Token.json'
 import Exchange from '../abis/Exchange.json'
@@ -58,14 +58,14 @@ export const loadAccount = async (web3, dispatch) => {
     }
 }
 
-//TODO - insert network name
+
 export const loadToken = async (web3, networkId, dispatch) => {
   try {
     const token = new web3.eth.Contract(Token.abi, Token.networks[networkId].address)
     dispatch(tokenLoaded(token))
     return token
   } catch (error) {
-    console.log('Contract not deployed to the current network. Please select the <INSERT NETWORK> network with Metamask.')
+    console.log('Contract not deployed to the current network. Please select the Rinkeby network with Metamask.')
     return null
   }
 }
@@ -76,7 +76,7 @@ export const loadExchange = async (web3, networkId, dispatch) => {
     dispatch(exchangeLoaded(exchange))
     return exchange
   } catch (error) {
-    console.log('Contract not deployed to the current network. Please select <INSERT NETWORK>  network with Metamask.')
+    console.log('Contract not deployed to the current network. Please select Rinkeby network with Metamask.')
     return null
   }
 }
@@ -134,17 +134,21 @@ export const subscribeToEvents = async (web3, account, networkId, exchange, toke
     //Eth Deposit
     if (depositToken === ETHER_ADDRESS && user === account){
       walletBalance = await web3.eth.getBalance(account)
-      dispatch(ethExchangeBalancesUpdating(exchangeBalance))
+
+
+      dispatch(exchangeEtherBalanceLoaded(exchangeBalance))
+
+
       dispatch(etherBalanceLoaded(walletBalance))
-      dispatch(balancesLoaded())
+      dispatch(ethBalancesLoaded())
     }
 
     //Token Deposit
     if (depositToken === Token.networks[networkId].address && user === account){
       walletBalance = await token.methods.balanceOf(account).call()
-      dispatch(tokenExchangeBalancesUpdating(exchangeBalance)) 
+      dispatch(exchangeTokenBalanceLoaded(exchangeBalance)) 
       dispatch(tokenBalanceLoaded(walletBalance)) 
-      dispatch(balancesLoaded())
+      dispatch(tokenBalancesLoaded())
     }
   })
 
@@ -156,17 +160,21 @@ export const subscribeToEvents = async (web3, account, networkId, exchange, toke
     //Eth withdraw
     if (withdrawToken === ETHER_ADDRESS && user === account){
       walletBalance = await web3.eth.getBalance(account)
-      dispatch(ethExchangeBalancesUpdating(exchangeBalance))
+
+
+      dispatch(exchangeEtherBalanceLoaded(exchangeBalance))
+
+
       dispatch(etherBalanceLoaded(walletBalance))
-      dispatch(balancesLoaded())
+      dispatch(ethBalancesLoaded())
     }
 
     //Token withdraw
     if (withdrawToken === Token.networks[networkId].address && user === account){
       walletBalance = await token.methods.balanceOf(account).call()
-      dispatch(tokenExchangeBalancesUpdating(exchangeBalance)) 
+      dispatch(exchangeTokenBalanceLoaded(exchangeBalance)) 
       dispatch(tokenBalanceLoaded(walletBalance)) 
-      dispatch(balancesLoaded())
+      dispatch(tokenBalancesLoaded())
     }
   })
 }
@@ -182,34 +190,30 @@ export const fillOrder = (dispatch, exchange, order, account) => {
   })
 }
 
-//TODO - figure out why the path of the smart contract addresses include 'options'
+
 export const loadBalances = async (dispatch, web3, exchange, token, account) => {
-  if(typeof account !== 'undefined') {
-    //Pull all balance from both wallet and exchange and load them into redux
-    // Ether balance in wallet
-    const etherBalance = await web3.eth.getBalance(account)
-    dispatch(etherBalanceLoaded(etherBalance))
-    // Token balance in wallet
-    const tokenBalance = await token.methods.balanceOf(account).call()
-    dispatch(tokenBalanceLoaded(tokenBalance))
-    // Ether balance in exchange
-    const exchangeEtherBalance = await exchange.methods.balanceOf(ETHER_ADDRESS, account).call()
-    dispatch(exchangeEtherBalanceLoaded(exchangeEtherBalance))
-    // Token balance in exchange 
-    const exchangeTokenBalance = await exchange.methods.balanceOf(token.options.address, account).call()
-    dispatch(exchangeTokenBalanceLoaded(exchangeTokenBalance))
-    // Trigger all balances loaded~
-    dispatch(balancesLoaded())
-  } else {
-    window.alert('Please login with MetaMask')
-  }
+  // Ether balance in wallet
+  const etherBalance = await web3.eth.getBalance(account)
+  dispatch(etherBalanceLoaded(etherBalance))
+  // Token balance in wallet
+  const tokenBalance = await token.methods.balanceOf(account).call()
+  dispatch(tokenBalanceLoaded(tokenBalance))
+  // Ether balance in exchange
+  const exchangeEtherBalance = await exchange.methods.balanceOf(ETHER_ADDRESS, account).call()
+  dispatch(exchangeEtherBalanceLoaded(exchangeEtherBalance))
+  // Token balance in exchange 
+  const exchangeTokenBalance = await exchange.methods.balanceOf(token.options.address, account).call()
+  dispatch(exchangeTokenBalanceLoaded(exchangeTokenBalance))
+  // Trigger all balances loaded (balanceLoadingSelector's starts as true)
+  dispatch(ethBalancesLoaded())
+  dispatch(tokenBalancesLoaded())
 }
 
 export const depositEther = (dispatch, exchange, web3, amount, account) => {
   //we need to convert value to wei
   exchange.methods.depositEther().send({ from: account,  value: web3.utils.toWei(amount, 'ether') })
   .on('transactionHash', (hash) => {
-    dispatch(balancesLoading())
+    dispatch(ethBalancesLoading())
   })
   .on('error',(error) => {
     console.error(error)
@@ -223,7 +227,7 @@ export const depositEther = (dispatch, exchange, web3, amount, account) => {
 export const withdrawEther = (dispatch, exchange, web3, amount, account) => {
   exchange.methods.withdrawEther(web3.utils.toWei(amount, 'ether')).send({ from: account })
   .on('transactionHash', (hash) => {
-    dispatch(balancesLoading())
+    dispatch(ethBalancesLoading())
   })
   .on('error',(error) => {
     console.error(error)
@@ -243,7 +247,7 @@ export const depositToken = (dispatch, exchange, web3, token, amount, account) =
   .on('transactionHash', (hash) => {
     exchange.methods.depositToken(token.options.address, amount).send({ from: account })
     .on('transactionHash', (hash) => {
-      dispatch(balancesLoading())
+      dispatch(tokenBalancesLoading())
     })
     .on('error',(error) => {
       console.error(error)
@@ -258,11 +262,11 @@ export const depositToken = (dispatch, exchange, web3, token, amount, account) =
 export const withdrawToken = (dispatch, exchange, web3, token, amount, account) => {
   exchange.methods.withdrawToken(token.options.address, web3.utils.toWei(amount, 'ether')).send({ from: account })
   .on('transactionHash', (hash) => {
-    dispatch(balancesLoading())
+    dispatch(tokenBalancesLoading())
   })
   .on('error',(error) => {
     console.error(error)
-    //4001 error is pressing the reject button on metamask confirmation
+    //4001 error -> reject button on metamask confirmation
     if (error.code !== 4001){
       window.alert(`There was an error!`)
     }
