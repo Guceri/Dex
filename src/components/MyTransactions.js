@@ -92,10 +92,8 @@ class MyTransactions extends Component {
   }
 }
  
-function mapStateToProps(state) {
-   //console log here to see selectors in chrome console
 
-   //booleans to determine if open orders are shown or if the spinner should show
+function mapStateToProps(state) {
   const myOpenOrdersLoaded = myOpenOrdersLoadedSelector(state)
   const orderCancelling = orderCancellingSelector(state)
   return {
