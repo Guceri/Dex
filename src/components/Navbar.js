@@ -5,26 +5,38 @@ import { accountSelector } from '../store/selectors'
 class Navbar extends Component {
   render() {
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <a 
           className="navbar-brand" 
-          href="https://github.com/Guceri" 
+          href="https://github.com/Guceri/Link-Token-Exchange-Rinkeby-Network-Ethereum" 
           target="_blank" 
           rel="noopener noreferrer"
         >
+          <img src="link.png" width="30" height="30" class="d-inline-block align-top" alt=""></img>
+          {"   "}
           Link Token Exchange
         </a>
+        <ul className="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" 
+            href="https://github.com/Guceri/Link-Token-Exchange-Rinkeby-Network-Ethereum" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            >Github Source Code</a>
+          </li>  
+        </ul>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
             <a
-              className="nav-link small"
+              className="nav-link"
               href={`https://rinkeby.etherscan.io/address/${this.props.account}`}
               target="_blank"
               rel="noopener noreferrer"
             >
+              {"                "}
               {this.props.account}
             </a>
           </li>
