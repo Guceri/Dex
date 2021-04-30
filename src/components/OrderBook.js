@@ -64,7 +64,7 @@ class OrderBook extends Component {
             Order Book
           </div>
           <div className="card-body order-book">
-            <table className="table table-dark table-sm small text-center">
+            <table className="table table-dark table-hover table-sm small text-center">
               { this.props.showOrderBook ? iOrderBook(this.props) : <Spinner type='table' /> }
             </table>
           </div>

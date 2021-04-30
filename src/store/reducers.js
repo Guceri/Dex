@@ -101,7 +101,6 @@ function exchange(state = {}, action) {
       return { ...state, tokenDepositAmount: action.amount }
     case 'TOKEN_WITHDRAW_AMOUNT_CHANGED':
       return { ...state, tokenWithdrawAmount: action.amount }
-
     case 'BUY_ORDER_AMOUNT_CHANGED':
       return { ...state, buyOrder: { ...state.buyOrder, amount: action.amount } }
     case 'BUY_ORDER_PRICE_CHANGED':

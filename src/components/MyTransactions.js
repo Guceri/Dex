@@ -62,7 +62,7 @@ class MyTransactions extends Component {
         <div className="card-body">
           <Tabs defaultActiveKey="trades" className="bg-dark text-white">
             <Tab eventKey="trades" title="Filled Orders" className="bg-dark">
-              <table className="table table-dark table-sm small">
+              <table className="table table-hover table-dark table-sm small">
                 <thead>
                   <tr>
                     <th>Time</th>
@@ -74,7 +74,7 @@ class MyTransactions extends Component {
               </table>
             </Tab>
             <Tab eventKey="orders" title="Open Orders">
-              <table className="table table-dark table-sm small">
+              <table className="table table-hover table-dark table-sm small">
                 <thead>
                   <tr>
                     <th>Amount</th>
@@ -94,6 +94,7 @@ class MyTransactions extends Component {
  
 
 function mapStateToProps(state) {
+
   const myOpenOrdersLoaded = myOpenOrdersLoadedSelector(state)
   const orderCancelling = orderCancellingSelector(state)
   return {
