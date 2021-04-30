@@ -1,10 +1,13 @@
 pragma solidity ^0.5.0;
 
-import "./Token.sol";
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "@chainlink/contracts/src/v0.5/interfaces/LinkTokenInterface.sol"; 
 
 contract Exchange {
+    //overflow safe operators
     using SafeMath for uint;
+    //interface for linke token functions
+    LinkTokenInterface internal LINK;
 
     // Variables
     address public feeAccount; // the account that receives exchange fees
@@ -62,6 +65,7 @@ contract Exchange {
     constructor (address _feeAccount, uint256 _feePercent) public {
         feeAccount = _feeAccount;
         feePercent = _feePercent;
+        LINK = LinkTokenInterface(0x01BE23585060835E02B77ef475b0Cc51aA1e0709);// LINK token -> Rinkeby Network
     }
 
     // Fallback: reverts if Ether is sent to this smart contract by mistake
@@ -83,7 +87,9 @@ contract Exchange {
 
     function depositToken(address _token, uint _amount) public {
         require(_token != ETHER);
-        require(Token(_token).transferFrom(msg.sender, address(this), _amount));
+
+        require(LINK.transferFrom(msg.sender, address(this), _amount));
+
         tokens[_token][msg.sender] = tokens[_token][msg.sender].add(_amount);
         emit Deposit(_token, msg.sender, _amount, tokens[_token][msg.sender]);
     }
@@ -92,7 +98,9 @@ contract Exchange {
         require(_token != ETHER);
         require(tokens[_token][msg.sender] >= _amount);
         tokens[_token][msg.sender] = tokens[_token][msg.sender].sub(_amount);
-        require(Token(_token).transfer(msg.sender, _amount));
+
+        require(LINK.transfer(msg.sender, _amount));
+
         emit Withdraw(_token, msg.sender, _amount, tokens[_token][msg.sender]);
     }
 

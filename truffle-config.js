@@ -1,6 +1,7 @@
 require('babel-register');
 require('babel-polyfill');
 require('dotenv').config();
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 
 module.exports = {
   networks: {
@@ -8,6 +9,14 @@ module.exports = {
       host: "127.0.0.1",
       port: 7545,
       network_id: "*" // Match any network id
+    },
+    rinkeby: {
+      provider: () => new HDWalletProvider(process.env.MNEMONIC, `https://rinkeby.infura.io/v3/${process.env.INFURA_API_KEY}`),
+      network_id: 4,       
+      gas: 9500000,        
+      confirmations: 0,    
+      timeoutBlocks: 200,  
+      skipDryRun: true     
     },
   },
   contracts_directory: './src/contracts/',
