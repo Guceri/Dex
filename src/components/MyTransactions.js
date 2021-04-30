@@ -60,8 +60,9 @@ class MyTransactions extends Component {
           Account Transactions
         </div>
         <div className="card-body">
-          <Tabs defaultActiveKey="trades" className="bg-dark text-white">
+          <Tabs defaultActiveKey="trades" className="bg-dark text-white h5" variant ="pill">
             <Tab eventKey="trades" title="Filled Orders" className="bg-dark">
+              <br></br>
               <table className="table table-hover table-dark table-sm small">
                 <thead>
                   <tr>
@@ -74,6 +75,7 @@ class MyTransactions extends Component {
               </table>
             </Tab>
             <Tab eventKey="orders" title="Open Orders">
+              <br></br>
               <table className="table table-hover table-dark table-sm small">
                 <thead>
                   <tr>

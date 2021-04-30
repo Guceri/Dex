@@ -114,7 +114,9 @@ export const cancelOrder = (dispatch, exchange, order, account) => {
   })
   .on('error', (error) => {
     console.log(error)
-    window.alert('There was an error submitting order cancellation')
+    if (error.code !== 4001){
+      window.alert(`There was an error!`)
+    }
   })
 }
 

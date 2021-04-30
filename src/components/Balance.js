@@ -54,8 +54,9 @@ const balanceForm = (props) => {
 
 //TODO - seperate spinner on withdraw/deposit
   return (
-    <Tabs defaultActiveKey="deposit" className="bg-dark text-white">
+    <Tabs defaultActiveKey="deposit" className="bg-dark text-white h5" variant ="pill">
       <Tab eventKey="deposit" title="Deposit" className="bg-dark">
+        <br></br>
         <table className="table table-dark table-sm small text-center">
           <thead>
             <tr>
@@ -114,6 +115,7 @@ const balanceForm = (props) => {
         </form>
       </Tab>
       <Tab eventKey="withdraw" title="Withdraw" className="bg-dark">
+        <br></br>
         <table className="table table-dark table-sm small text-center">
           <thead>
             <tr>

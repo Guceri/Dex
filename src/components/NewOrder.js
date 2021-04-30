@@ -40,10 +40,9 @@ const showForm = (props) => {
   //TODO - order hsould be "Amount" and "Limit Price", then Total, then "PLACE BUY ORDER"
 
   return(
-    <Tabs defaultActiveKey="buy" className="bg-dark text-white">
-
-      <Tab eventKey="buy" title="  Buy  " className="bg-dark">
-
+    <Tabs defaultActiveKey="buy" className="bg-dark text-white h5 " variant ="pill"> 
+      <Tab eventKey="buy" title="Buy" className="bg-dark">
+          <br></br>
           <form onSubmit={(event) => {
             event.preventDefault()
             makeBuyOrder(dispatch, exchange, token, web3, buyOrder, account)
@@ -79,7 +78,7 @@ const showForm = (props) => {
       </Tab>
 
       <Tab eventKey="sell" title="Sell" className="bg-dark">
-
+        <br></br>
         <form onSubmit={(event) => {
           event.preventDefault()
           makeSellOrder(dispatch, exchange, token, web3, sellOrder, account)
