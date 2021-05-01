@@ -6,7 +6,7 @@ import "@chainlink/contracts/src/v0.5/interfaces/LinkTokenInterface.sol";
 contract Exchange {
     //overflow safe operators
     using SafeMath for uint;
-    //interface for linke token functions
+    //interface for link token functions
     LinkTokenInterface internal LINK;
 
     // Variables
