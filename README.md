@@ -10,12 +10,10 @@
   of the DAPP.  They are outlined below.  The 'ganache' branch is the set of code that was used for development where as the 'master' branch is
   used for deployment on the rinkeby testnet.  
 
-![](public/chart.png)
-
-
 ## TODO
 - [ ] Finish README.md with overview of project 
 - [ ] clean up TODO items in code
 - [ ] pull price data from link oracles
 - [ ] create a matching engine for autofilling orders
 
+![](public/chart.png)
