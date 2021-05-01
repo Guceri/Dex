@@ -4,7 +4,7 @@
   underconstruction....
 
 <p align="center">
-  <img width="400" height="400" src="public/composite_clear.png">
+  <img width="400" height="200" src="public/composite_clear.png">
 </p>
 
 ## Flow Chart
