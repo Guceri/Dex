@@ -3,7 +3,6 @@ pragma solidity ^0.6.0;
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "@chainlink/contracts/src/v0.6/interfaces/LinkTokenInterface.sol"; 
 
-
 contract Exchange {
     //overflow safe operators
     using SafeMath for uint;
