@@ -12,8 +12,9 @@
 
 ## TODO
 - [ ] Finish README.md with overview of project 
-- [ ] clean up TODO items in code
-- [ ] pull price data from link oracles
-- [ ] create a matching engine for autofilling orders
+- [ ] Clean up TODO items in code
+- [ ] Pull price data from link oracles
+- [ ] Create a matching engine for autofilling orders
+- [ ] Create market making script to keep markets inline 
 
 ![](public/chart.png)
