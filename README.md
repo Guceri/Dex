@@ -1,10 +1,11 @@
-<p align="center">
-  <img width="800" height="400" src="public/composite_clear.png">
-</p>
+
 
 # Dex Exchange 
   underconstruction....
 
+<p align="center">
+  <img width="400" height="400" src="public/composite_clear.png">
+</p>
 
 ## Flow Chart
 ![](public/flowchart.png)
