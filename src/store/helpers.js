@@ -1,5 +1,6 @@
 //TODO - merge helper files
 export const ETHER_ADDRESS = '0x0000000000000000000000000000000000000000'
+export const LINK_ADDRESS = '0x01BE23585060835E02B77ef475b0Cc51aA1e0709' //rinkeby contract address
 export const RED = 'danger'
 export const GREEN = 'success'
 

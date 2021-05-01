@@ -24,9 +24,9 @@ import {
   sellOrderMaking,
   orderMade
 } from './actions'
-import Token from '../abis/Token.json'
+import Link from '../abis/LinkTokenInterface.json'
 import Exchange from '../abis/Exchange.json'
-import { ETHER_ADDRESS } from './helpers'
+import { ETHER_ADDRESS, LINK_ADDRESS } from './helpers'
 
 export const loadWeb3 = async (dispatch) => {
   if(typeof window.ethereum!=='undefined'){
@@ -47,28 +47,28 @@ export const loadNetworkId = async (web3, dispatch) => {
 
 
 export const loadAccount = async (web3, dispatch) => {
-    const accounts = await web3.eth.getAccounts()
-    const account = await accounts[0]
+  const accounts = await web3.eth.getAccounts()
+  const account = await accounts[0]
 
-    if(typeof account !== 'undefined'){
-      dispatch(web3AccountLoaded(account))
-      return account
-    } else {
-      //make metaMask pop up to log into
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      const account = accounts[0];
-      return account
-    }
+  if(typeof account !== 'undefined'){
+    dispatch(web3AccountLoaded(account))
+    return account
+  } else {
+    //make metaMask pop up to log into
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const account = accounts[0];
+    return account
+  }
 }
 
 
 export const loadToken = async (web3, networkId, dispatch) => {
   try {
-    const token = new web3.eth.Contract(Token.abi, Token.networks[networkId].address)
+    const token = new web3.eth.Contract(Link.abi, LINK_ADDRESS)
     dispatch(tokenLoaded(token))
     return token
   } catch (error) {
-    console.log('Contract not deployed to the current network. Please select the Rinkeby network with Metamask.')
+    window.alert('Contract not deployed to the current network. Please select the Rinkeby network with Metamask.')
     return null
   }
 }
@@ -79,7 +79,7 @@ export const loadExchange = async (web3, networkId, dispatch) => {
     dispatch(exchangeLoaded(exchange))
     return exchange
   } catch (error) {
-    console.log('Contract not deployed to the current network. Please select Rinkeby network with Metamask.')
+    window.alert('Contract not deployed to the current network. Please select Rinkeby network with Metamask.')
     return null
   }
 }
@@ -145,7 +145,7 @@ export const subscribeToEvents = async (web3, account, networkId, exchange, toke
     }
 
     //Token Deposit
-    if (depositToken === Token.networks[networkId].address && user === account){
+    if (depositToken === LINK_ADDRESS && user === account){
       walletBalance = await token.methods.balanceOf(account).call()
       dispatch(exchangeTokenBalanceLoaded(exchangeBalance)) 
       dispatch(tokenBalanceLoaded(walletBalance)) 
@@ -167,7 +167,7 @@ export const subscribeToEvents = async (web3, account, networkId, exchange, toke
     }
 
     //Token withdraw
-    if (withdrawToken === Token.networks[networkId].address && user === account){
+    if (withdrawToken === LINK_ADDRESS && user === account){
       walletBalance = await token.methods.balanceOf(account).call()
       dispatch(exchangeTokenBalanceLoaded(exchangeBalance)) 
       dispatch(tokenBalanceLoaded(walletBalance)) 
