@@ -1,7 +1,8 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.6.0;
 
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
-import "@chainlink/contracts/src/v0.5/interfaces/LinkTokenInterface.sol"; 
+import "@chainlink/contracts/src/v0.6/interfaces/LinkTokenInterface.sol"; 
+
 
 contract Exchange {
     //overflow safe operators
@@ -69,7 +70,7 @@ contract Exchange {
     }
 
     // Fallback: reverts if Ether is sent to this smart contract by mistake
-    function() external {
+    fallback () external {
         revert();
     }
 
