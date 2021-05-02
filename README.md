@@ -11,6 +11,11 @@
   of the DAPP.  They are outlined below.  The 'ganache' branch is the set of code that was used for development where as the 'master' branch is
   used for deployment on the rinkeby testnet.  
 
+## User Interface
+
+![](public/UI.png)
+
+
 ## TODO
 
 - [ ] Balances don't refresh when running loading script
@@ -23,6 +28,6 @@
 - [ ] Create market making script to keep markets inline 
 
 
-![](public/UI.png)
+## Dapp Architecture
 
 ![](public/chart.png)
