@@ -11,8 +11,11 @@
   used for deployment on the rinkeby testnet.  
 
 ## TODO
-- [ ] Finish README.md with overview of project 
-- [ ] Clean up TODO items in code
+- [ ] Finish README.md with overview of project
+- [ ] Balances don't refresh when running loading script
+- [ ] Balance doesn't refresh when you fill an order from the orderbook
+- [ ] MetaMask: ALERT: Transaction Error, Exception thrown in contract code.
+- [ ] Clean up non critical TODO items in code
 - [ ] Pull price data from link oracles
 - [ ] Create a matching engine for autofilling orders
 - [ ] Create market making script to keep markets inline 
