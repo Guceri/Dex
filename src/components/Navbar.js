@@ -12,13 +12,13 @@ class Navbar extends Component {
           target="_blank" 
           rel="noopener noreferrer"
         >
-          <img src="link.png" width="30" height="30" class="d-inline-block align-top" alt=""></img>
+          <img src="link.png" width="30" height="30" className="d-inline-block align-top" alt=""></img>
           {"   "}
           Link Token Exchange
         </a>
         <ul className="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" 
+          <li className="nav-item">
+            <a className="nav-link" 
             href="https://github.com/Guceri/Link-Token-Exchange-Rinkeby-Network-Ethereum" 
             target="_blank" 
             rel="noopener noreferrer"
