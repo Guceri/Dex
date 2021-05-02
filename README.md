@@ -1,6 +1,7 @@
 
 
 # Decentralized Exchange 
+
   While this project was more for educational purposes then actually a product meant for deployment, I would like to add a matching engine to the
   Dex to expand its functionality and make it more realistic. In order to trade using this Dex, you have to click on specific orders in the orderbook 
   to trade.  There is nothing that stops the orderbook from crossing markets (ie. a limit order submission will not fill even if your limit order is 
@@ -11,10 +12,11 @@
   used for deployment on the rinkeby testnet.  
 
 ## TODO
-- [ ] Finish README.md with overview of project
+
 - [ ] Balances don't refresh when running loading script
 - [ ] Balance doesn't refresh when you fill an order from the orderbook
-- [ ] MetaMask: ALERT: Transaction Error, Exception thrown in contract code.
+- [ ] Update account balance based on pending orders in orderbook; update balance if orders(s) are cancelled or filled
+- [ ] Finish README.md with overview of project
 - [ ] Clean up non critical TODO items in code
 - [ ] Pull price data from link oracles
 - [ ] Create a matching engine for autofilling orders
