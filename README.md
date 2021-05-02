@@ -23,6 +23,6 @@
 - [ ] Create market making script to keep markets inline 
 
 
-![]([public/UI.png])
+![](public/UI.png)
 
 ![](public/chart.png)
