@@ -52,7 +52,6 @@ const balanceForm = (props) => {
     tokenBalanceLoading
   } = props
 
-//TODO - seperate spinner on withdraw/deposit
   return (
     <Tabs defaultActiveKey="deposit" className="bg-dark text-white h5" variant ="pill">
       <Tab eventKey="deposit" title="Deposit" className="bg-dark">

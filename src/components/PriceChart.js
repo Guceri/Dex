@@ -1,4 +1,3 @@
-//TODO - y axis prices are not displaying
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Chart from 'react-apexcharts'

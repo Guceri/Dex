@@ -11,12 +11,6 @@ import {
 } from '../store/selectors'
 import { fillOrder } from '../store/interactions'
 
-
-//TODO - Center orderbook
-//TODO - orderbook should only have size" and Price
-//TODO - calculate the spread for the center divider
-//TODO - get rid of pop up when rejecting order form metmask
-
 const renderOrder = (order, props) => {
   const { dispatch, exchange, account } = props
 
@@ -54,7 +48,7 @@ const iOrderBook = (props) => {
     </tbody>
   )
 }
-//TODO - difference between 'extends Component' & regular function
+
 class OrderBook extends Component {
   render() {
     return (

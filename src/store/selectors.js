@@ -1,4 +1,3 @@
-//TODO - understand exactly how data is being pulled from redux
 import { get, groupBy, maxBy, minBy, reject } from 'lodash'
 import { createSelector } from 'reselect'
 import moment from 'moment'

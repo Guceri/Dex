@@ -34,11 +34,6 @@ const showForm = (props) => {
     showSellTotal
   } = props
 
-
-  //TODO - copy how the order form clears and use it for the deposit/withdraw
-  //TODO - round display valus to 2 decimal places for order form and orderbook (ETH values)
-  //TODO - order hsould be "Amount" and "Limit Price", then Total, then "PLACE BUY ORDER"
-
   return(
     <Tabs defaultActiveKey="buy" className="bg-dark text-white h5 " variant ="pill"> 
       <Tab eventKey="buy" title="Buy" className="bg-dark">
