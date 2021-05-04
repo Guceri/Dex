@@ -27,12 +27,10 @@
 - [ ] Balances don't refresh when running loading script
 - [ ] Balance doesn't refresh when you fill an order from the orderbook
 - [ ] Update account balance based on pending orders in orderbook; update balance if orders(s) are cancelled or filled
-- [ ] Finish README.md with overview of project
 - [ ] Y axis prices are not displaying on chart after version upgrade of apex charts
 - [ ] Merge helper.js files
-- [ ] Pull price data from link oracles
-- [ ] Create a matching engine for autofilling orders
-- [ ] Create market making script to keep markets inline 
+- [ ] Convert to a stable coin market (ie. Dai)
+- [ ] Create a matching engine for autofilling orders (0x Protocol)
 
 
 ## Dapp Architecture
