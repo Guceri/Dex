@@ -12,6 +12,8 @@
   used for deployment on the rinkeby testnet.  
 
   - You can see the current deployed version [here](https://rinkeby-dex.herokuapp.com/)
+  - Add Rinkeby ETH from [here](https://faucet.rinkeby.io/)
+  - Add Rinkeby LINK from [here](https://rinkeby.chain.link/)
 
 
 
