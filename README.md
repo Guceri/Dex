@@ -11,6 +11,10 @@
   of the DAPP.  They are outlined below.  The 'ganache' branch is the set of code that was used for development where as the 'master' branch is
   used for deployment on the rinkeby testnet.  
 
+  - You can see the current deployed version [here](https://rinkeby-dex.herokuapp.com/)
+
+
+
 ## User Interface
 
 ![](public/UI.png)
