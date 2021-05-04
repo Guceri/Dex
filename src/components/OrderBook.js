@@ -74,7 +74,7 @@ function mapStateToProps(state) {
 
   return {
     orderBook: orderBookSelector(state),
-    showOrderBook: orderBookLoaded && !orderFilling,  //bool
+    showOrderBook: orderBookLoaded && !orderFilling,  
     exchange: exchangeSelector(state),
     account: accountSelector(state)
   }

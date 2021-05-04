@@ -49,7 +49,7 @@ const filledOrders = state => get(state, 'exchange.filledOrders.data', [])
 export const filledOrdersSelector = createSelector(
   filledOrders,
   (orders) => {
-    // Sort orders by date ascending for price comparison
+    // Sort orders by date ascending 
     orders = orders.sort((a,b) => a.timestamp - b.timestamp)
     // Decorate the orders
     orders = decorateFilledOrders(orders)
